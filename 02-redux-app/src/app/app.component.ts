@@ -6,5 +6,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'redux-app';
+  contador: number;
+
+  constructor() {
+    this.contador = 10;
+  }
+
+  onIncrement() {
+    this.contador += 1;
+  }
+
+  onDecrease() {
+    this.contador -= 1;
+  }
+
+  changeCount(count: number) {
+    this.contador = count;
+  }
 }
