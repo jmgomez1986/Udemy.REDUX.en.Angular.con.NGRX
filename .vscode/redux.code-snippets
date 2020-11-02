@@ -1,0 +1,68 @@
+{
+	// Place your Udemy.REDUX.en.Angular.con.NGRX workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"Print to console": {
+		"scope": "javascript,typescript",
+		"prefix": "log",
+		"body": [
+			"console.log('$1');",
+			"$2"
+		],
+		"description": "Log output to console"
+	},
+
+	"Import create action": {
+		"scope": "javascript,typescript",
+		"prefix": "impcreateac",
+		"body": [
+			"import { createAction, props } from '@ngrx/store';\r",
+		],
+		"description": "NgRx Import Create Action with Props"
+	},
+
+	"Create action": {
+		"scope": "javascript,typescript",
+		"prefix": "createac",
+		"body": [
+			"export const ${1:ACTION} = createAction('[${2:Workspace}] ${1:ACTION}');\r",
+		],
+		"description": "NgRx Create Action"
+	},
+	"Create action prop": {
+		"scope": "javascript,typescript",
+		"prefix": "createpropac",
+		"body": [
+			"export const ${1:ACTION} = createAction(\r",
+			"\t'[${2:Workspace}] ${1:ACTION}',\r",
+			"\tprops<{ id: number }>()\r",
+			");\r",
+		],
+		"description": "NgRx Create Action with Props"
+	},
+
+	"Create reducer": {
+		"scope": "javascript,typescript",
+		"prefix": "createreducer",
+		"body": [
+			"import { createReducer, on } from '@ngrx/store';\r\r",
+
+			"export const initialState = 0;\r\r",
+			
+			"const _${4:reducerName} = createReducer(",
+				"\tinitialState,",
+				"\ton(${1:ACTION}, (state) => state + 1),",
+				"\ton(${2:ACTION}, (state, { ${3:PROP} }) => state - 1),",
+			");\r\r",
+			
+			"export function ${5:reducerName}(state, action) {",
+				"\treturn _${4:reducerName}(state, action);",
+			"}\r"
+		],
+		"description": "NgRx Create Reducer"
+	},	
+}
