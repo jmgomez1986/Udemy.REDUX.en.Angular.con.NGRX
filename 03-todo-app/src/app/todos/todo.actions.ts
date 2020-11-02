@@ -25,3 +25,6 @@ export const borrar = createAction(
   props<{ id: number }>()
 );
 
+export const limpiarFiltro = createAction('[TODO] Limpiar Filtro');
+
+

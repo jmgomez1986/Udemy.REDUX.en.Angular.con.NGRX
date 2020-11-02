@@ -41,6 +41,7 @@ const _todoReducer = createReducer(
     });
   }),
   on(actions.borrar, (state, { id }) => state.filter(todo => todo.id !== id)),
+  on(actions.limpiarFiltro, state => state.filter(todo => !todo.completado)),
 );
 
 export function todoReducer(state, action) {
