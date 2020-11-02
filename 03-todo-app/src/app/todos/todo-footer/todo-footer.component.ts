@@ -11,11 +11,15 @@ import { filtrosValidos, setFilter } from 'src/app/filtro/filtro.actions';
 export class TodoFooterComponent implements OnInit {
   filtroActual: filtrosValidos;
   filtros: filtrosValidos[] = ['todos', 'completados', 'pendientes'];
+  pendientes = 0;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.store.select('filtro').subscribe(filtro => this.filtroActual = filtro);
+    this.store.subscribe(state => {
+      this.filtroActual = state.filtro;
+      this.pendientes = state.todos.filter(todo => !todo.completado).length;
+    });
   }
 
   onChangeFilter(filtro: filtrosValidos) {
