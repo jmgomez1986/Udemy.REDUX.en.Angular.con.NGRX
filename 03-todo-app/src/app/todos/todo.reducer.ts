@@ -5,7 +5,7 @@ import * as actions from './todo.actions';
 export const initialState: Todo[] = [
   new Todo('Salvar al mundo'),
   new Todo('Vencer a Thanos'),
-  new Todo('Coprar traje de Ironmab'),
+  new Todo('Coprar traje de Ironman'),
   new Todo('Robar escudo del Capitán América')
 ];
 
@@ -35,7 +35,8 @@ const _todoReducer = createReducer(
         return todo;
       }
     });
-  })
+  }),
+  on(actions.borrar, (state, { id }) => state.filter(todo => todo.id !== id)),
 );
 
 export function todoReducer(state, action) {
