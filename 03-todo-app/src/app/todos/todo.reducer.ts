@@ -24,6 +24,10 @@ const _todoReducer = createReducer(
       }
     });
   }),
+  on(actions.toggleAll, (state, { completado }) => state.map(todo => {
+    return { ...todo, completado };
+  }
+  )),
   on(actions.editar, (state, { id, texto }) => {
     return state.map(todo => {
       if (todo.id === id) {
