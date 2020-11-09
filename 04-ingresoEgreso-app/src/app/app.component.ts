@@ -11,8 +11,8 @@ export class AppComponent {
 
   constructor(private authService: AuthService) {
     this.authService.initAuthListener()
-      .subscribe(fuser => {
-        console.log(fuser);
+      .subscribe(fbuser => {
+        console.log(fbuser);
       });
   }
 }
