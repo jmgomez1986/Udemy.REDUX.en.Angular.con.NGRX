@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ingreso-egreso',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ingreso-egreso.component.scss']
 })
 export class IngresoEgresoComponent implements OnInit {
+  ingresoForm: FormGroup;
+  tipo = 'ingreso';
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.ingresoForm = this.fb.group({
+      descripcion: ['', Validators.required],
+      monto: ['', Validators.required],
+    });
+  }
+
+  guardar() {
+    if (this.ingresoForm.invalid) {
+      return;
+    }
   }
 
 }
