@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import * as ui from '../../shared/ui.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
+  cargando = false;
+  uiSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -23,6 +30,13 @@ export class RegisterComponent implements OnInit {
       correo: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+
+    this.uiSubscription = this.store.select('ui')
+      .subscribe(subUi => this.cargando = subUi.isLoading);
+  }
+
+  ngOnDestroy() {
+    this.uiSubscription.unsubscribe();
   }
 
   crearUsuario() {
@@ -31,29 +45,33 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const {nombre, correo, password} = this.registerForm.value;
+    this.store.dispatch(ui.isLoading());
 
-    Swal.fire({
-      title: 'Espere por favor',
-      willOpen: () => {
-        Swal.showLoading();
-      }
-    });
+    const { nombre, correo, password } = this.registerForm.value;
+
+    // Swal.fire({
+    //   title: 'Espere por favor',
+    //   willOpen: () => {
+    //     Swal.showLoading();
+    //   }
+    // });
 
     this.authService.crearUsuario(nombre, correo, password)
-     .then( credenciales => {
-       console.log(credenciales);
-       Swal.close();
-       this.router.navigate(['/']);
-     })
-     .catch(err => {
-       console.log(err);
-       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: err.message
+      .then(credenciales => {
+        //  console.log(credenciales);
+        //  Swal.close();
+        this.store.dispatch(ui.stopLoading());
+        this.router.navigate(['/']);
+      })
+      .catch(err => {
+        console.log(err);
+        this.store.dispatch(ui.stopLoading());
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.message
+        });
       });
-     });
 
   }
 

@@ -7,7 +7,7 @@ export interface State {
 
 export const initialState: State = {
    isLoading: false,
-}
+};
 
 const _uiReducer = createReducer(initialState,
 
