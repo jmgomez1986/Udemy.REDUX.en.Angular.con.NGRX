@@ -1,68 +1,81 @@
 {
-	// Place your Udemy.REDUX.en.Angular.con.NGRX workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
-	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
-	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
-	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
-	// Placeholders with the same ids are connected.
+	// Place your snippets for typescript here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
 	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
 	"Print to console": {
-		"scope": "javascript,typescript",
-		"prefix": "log",
+		"prefix": "clog",
 		"body": [
-			"console.log('$1');",
-			"$2"
+			"console.log $1",
 		],
 		"description": "Log output to console"
 	},
 
-	"Import create action": {
-		"scope": "javascript,typescript",
-		"prefix": "impcreateac",
+	"NgRx Actions": {
+		"prefix": "ngrx-actions",
 		"body": [
-			"import { createAction, props } from '@ngrx/store';\r",
+			"import { createAction } from '@ngrx/store';",
+			"",
+			"export const ${1:increment} = createAction('[${2:Counter Component}] ${1:Increment}');",
 		],
-		"description": "NgRx Import Create Action with Props"
+		"description": "Crea las acciones de NgRx"
 	},
 
-	"Create action": {
-		"scope": "javascript,typescript",
-		"prefix": "createac",
+	"NgRx Reducer": {
+		"prefix": "ngrx-reducer",
 		"body": [
-			"export const ${1:ACTION} = createAction('[${2:Workspace}] ${1:ACTION}');\r",
+			"import { createReducer, on } from '@ngrx/store';",
+			"import { $2 } from './${1:counter}.actions';",
+			"",
+			"export interface State {",
+			"    ${3:key}: ${4:String}; ",
+			"}",
+			"",
+			"export const initialState: State = {",
+			"   ${3:key}: ${5:'hola'},",
+			"}",
+			"",
+			"const _${6:counter}Reducer = createReducer(initialState,",
+			"",
+			"    on(${2:increment}, state => ({ ...state, ${3:key}: ${5:'hola'}})),",
+			"",
+			");",
+			"",
+			"export function ${6:counter}Reducer(state, action) {",
+			"    return _${6:counter}Reducer(state, action);",
+			"}"
 		],
-		"description": "NgRx Create Action"
-	},
-	"Create action prop": {
-		"scope": "javascript,typescript",
-		"prefix": "createpropac",
-		"body": [
-			"export const ${1:ACTION} = createAction(\r",
-			"\t'[${2:Workspace}] ${1:ACTION}',\r",
-			"\tprops<{ id: number }>()\r",
-			");\r",
-		],
-		"description": "NgRx Create Action with Props"
+		"description": "Crea el reducer básico"
 	},
 
-	"Create reducer": {
-		"scope": "javascript,typescript",
-		"prefix": "createreducer",
-		"body": [
-			"import { createReducer, on } from '@ngrx/store';\r\r",
 
-			"export const initialState = 0;\r\r",
-			
-			"const _${4:reducerName} = createReducer(",
-				"\tinitialState,",
-				"\ton(${1:ACTION}, (state) => state + 1),",
-				"\ton(${2:ACTION}, (state, { ${3:PROP} }) => state - 1),",
-			");\r\r",
-			
-			"export function ${5:reducerName}(state, action) {",
-				"\treturn _${4:reducerName}(state, action);",
-			"}\r"
+	"NgRx App Reducer": {
+		"prefix": "ngrx-app-reducers",
+		"body": [
+			"import { ActionReducerMap } from '@ngrx/store';",
+			"import * as $1 from './$2.reducer';",
+			"",
+			"",
+			"export interface AppState {",
+			"   ${3:todos}: $4",
+			"}",
+			"",
+			"",
+			"",
+			"export const appReducers: ActionReducerMap<AppState> = {",
+			"   ${3:todos}: $5,",
+			"}",
 		],
-		"description": "NgRx Create Reducer"
-	},	
+		"description": "Crea el AppReducer principal"
+	},
+
 }
