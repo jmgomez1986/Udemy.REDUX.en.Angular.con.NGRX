@@ -15,11 +15,16 @@ import { Subscription } from 'rxjs';
 })
 export class AuthService {
   userSubscription: Subscription;
+  private _user: Usuario;
 
   constructor(
     public auth: AngularFireAuth,
     private firestore: AngularFirestore,
     private store: Store<AppState>) { }
+
+    get user(): Usuario {
+      return {...this._user};
+    }
 
   initAuthListener() {
     this.auth.authState.subscribe((fbUser) => {
@@ -27,12 +32,14 @@ export class AuthService {
         this.userSubscription = this.firestore.doc(`${fbUser.uid}/usuario`).valueChanges()
         .subscribe((firestoreUser: any) => {
           const user = Usuario.fromFirebase(firestoreUser);
+          this._user = user;
           this.store.dispatch(authActions.setUser({ user }));
         });
       } else {
         if (this.userSubscription) {
           this.userSubscription.unsubscribe();
         }
+        this._user = null;
         this.store.dispatch(authActions.unSetUser());
       }
     });
