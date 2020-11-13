@@ -46,7 +46,7 @@ export class IngresoEgresoComponent implements OnInit, OnDestroy {
 
     const { descripcion, monto } = this.ingresoForm.value;
 
-    const ingresoEgreso = new IngresoEgreso(descripcion, monto, this.tipo);
+    const ingresoEgreso = new IngresoEgreso(descripcion, monto, this.tipo, '');
 
     this.ingresoEgresoService.crearIngresoEgreso(ingresoEgreso)
       .then(ref => {
