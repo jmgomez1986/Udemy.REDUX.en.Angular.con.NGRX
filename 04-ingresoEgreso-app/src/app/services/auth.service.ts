@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { Usuario } from '../models/usuario.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
@@ -16,7 +15,7 @@ import { unsetItems } from '../ingreso-egreso/ingreso-egreso.actions';
 })
 export class AuthService {
   userSubscription: Subscription;
-  private _user: Usuario;
+  private getterUser: Usuario;
 
   constructor(
     public auth: AngularFireAuth,
@@ -24,7 +23,7 @@ export class AuthService {
     private store: Store<AppState>) { }
 
     get user(): Usuario {
-      return {...this._user};
+      return {...this.getterUser};
     }
 
   initAuthListener() {
@@ -33,14 +32,14 @@ export class AuthService {
         this.userSubscription = this.firestore.doc(`${fbUser.uid}/usuario`).valueChanges()
         .subscribe((firestoreUser: any) => {
           const user = Usuario.fromFirebase(firestoreUser);
-          this._user = user;
+          this.getterUser = user;
           this.store.dispatch(authActions.setUser({ user }));
         });
       } else {
         if (this.userSubscription) {
           this.userSubscription.unsubscribe();
         }
-        this._user = null;
+        this.getterUser = null;
         this.store.dispatch(authActions.unsetUser());
         this.store.dispatch(unsetItems());
       }
@@ -48,7 +47,6 @@ export class AuthService {
   }
 
   crearUsuario(nombre: string, correo: string, password: string): Promise<any> {
-    console.log({ nombre, correo, password });
 
     return firebase.auth().createUserWithEmailAndPassword(correo, password)
       .then(({ user }) => {
