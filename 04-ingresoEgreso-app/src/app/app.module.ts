@@ -1,36 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { environment } from '../environments/environment';
-// NgRx
+
+// Modulos
+import { AppRoutingModule } from './app-routing.module';
+
+// NGRX
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './app.reducer';
-// Angular Fire
+
+// Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-import { AppRoutingModule } from './app-routing.module';
+// Modulos personalizados
+import { AuthModule } from './auth/auth.module';
+
+// Environment
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-
-import { AuthModule } from './auth/auth.module';
-import { IngresoEgresoModule } from './ingreso-egreso/ingreso-egreso.module';
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-
     AuthModule,
-    IngresoEgresoModule,
-
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
