@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ChartType } from 'chart.js';
+import { Label, MultiDataSet } from 'ng2-charts/lib/base-chart.directive';
 import { AppState } from 'src/app/app.reducer';
 import { IngresoEgreso } from 'src/app/models/ingreso-egreso.model';
 
@@ -14,10 +16,15 @@ export class EstadisticaComponent implements OnInit {
   totalIngresos = 0;
   totalEgresos = 0;
 
+  // Doughnut
+  public doughnutChartLabels: Label[] = ['Ingresos', 'Egresos'];
+  public doughnutChartData: MultiDataSet = [ [] ];
+  public doughnutChartType: ChartType = 'doughnut';
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.store.select('ingresoEgreso').subscribe(({items}) => this.generarEstadistica(items));
+    this.store.select('ingresoEgreso').subscribe(({ items }) => this.generarEstadistica(items));
   }
 
   generarEstadistica(items: IngresoEgreso[]) {
@@ -25,13 +32,29 @@ export class EstadisticaComponent implements OnInit {
     for (const item of items) {
       if (item.tipo === 'ingreso') {
         this.totalIngresos += item.monto;
-        this.ingresos ++;
+        this.ingresos++;
       }
       if (item.tipo === 'egreso') {
         this.totalEgresos += item.monto;
-        this.egresos ++;
+        this.egresos++;
       }
     }
+
+    this.doughnutChartData = [
+      [
+        this.ingresos,
+        this.egresos]
+      ];
+
+  }
+
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
   }
 
 }

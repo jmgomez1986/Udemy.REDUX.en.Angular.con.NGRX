@@ -12,6 +12,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChartsModule, ThemeService } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -44,6 +45,7 @@ import { OrdenIngresosEgresosPipe } from './pipes/orden-ingresos-egresos.pipe';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -53,7 +55,9 @@ import { OrdenIngresosEgresosPipe } from './pipes/orden-ingresos-egresos.pipe';
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [],
+  providers: [
+    ThemeService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
