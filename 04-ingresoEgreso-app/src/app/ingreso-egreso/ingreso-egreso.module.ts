@@ -11,6 +11,7 @@ import { DetalleComponent } from './detalle/detalle.component';
 import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { IngresoEgresoComponent } from './ingreso-egreso.component';
 import { SharedModule } from '../shared/shared.module';
+import { DashboardRoutesModule } from '../dashboard/dashboard-routes.module';
 
 @NgModule({
   declarations: [
@@ -22,11 +23,11 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     ChartsModule,
     SharedModule,
+    DashboardRoutesModule
   ],
   providers: [
     ThemeService,
