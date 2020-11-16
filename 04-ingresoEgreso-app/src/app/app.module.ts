@@ -22,11 +22,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
 import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
 import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { OrdenIngresosEgresosPipe } from './pipes/orden-ingresos-egresos.pipe';
-
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,17 +31,17 @@ import { OrdenIngresosEgresosPipe } from './pipes/orden-ingresos-egresos.pipe';
     IngresoEgresoComponent,
     EstadisticaComponent,
     DetalleComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
     OrdenIngresosEgresosPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule,
     FormsModule,
     ReactiveFormsModule,
+
+    AuthModule,
+    SharedModule,
+
     ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
