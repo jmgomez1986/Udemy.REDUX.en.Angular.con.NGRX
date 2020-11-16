@@ -16,7 +16,8 @@ export class IngresoEgresoService {
   crearIngresoEgreso(ingresoEgreso: IngresoEgreso): Promise<DocumentReference> {
     const uidUser = this.autService.user.uid;
 
-    delete ingresoEgreso.uid;
+    delete ingresoEgreso.uid; // elimina la propiedad uid
+
     return this.firestore.doc(`${uidUser}/ingresos-egresos`)
       .collection('items')
       .add({ ...ingresoEgreso });
