@@ -10,7 +10,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./lista.component.scss']
 })
 export class ListaComponent implements OnInit {
-  usuarios: Array<Usuario>;
+  usuarios: Array<Usuario> = [];
   subscriptions: Array<Subscription>;
 
   constructor(private usuarioService: UsuarioService) { }
