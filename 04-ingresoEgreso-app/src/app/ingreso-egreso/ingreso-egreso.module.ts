@@ -12,6 +12,9 @@ import { IngresoEgresoComponent } from './ingreso-egreso.component';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardRoutesModule } from '../dashboard/dashboard-routes.module';
 
+import { StoreModule } from '@ngrx/store';
+import { ingresoEgresoReducer } from './ingreso-egreso.reducers';
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -26,7 +29,8 @@ import { DashboardRoutesModule } from '../dashboard/dashboard-routes.module';
     ReactiveFormsModule,
     ChartsModule,
     SharedModule,
-    DashboardRoutesModule
+    DashboardRoutesModule,
+    StoreModule.forFeature('ingresosEgresos', ingresoEgresoReducer)
   ],
   providers: [
     ThemeService,
