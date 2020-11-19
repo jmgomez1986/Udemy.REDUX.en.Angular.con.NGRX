@@ -1,9 +1,11 @@
 import { Component,  OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
+import { cargarUsuarios } from 'src/app/store/actions';
+import { AppState } from 'src/app/store/app.reducers';
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.component.html',
@@ -14,7 +16,7 @@ export class ListaComponent implements OnInit {
   subscriptions: Array<Subscription>;
 
   // constructor(private usuarioService: UsuarioService) { }
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.getUsers();
@@ -22,13 +24,12 @@ export class ListaComponent implements OnInit {
 
   getUsers() {
     // this.usuarioService.getUsers()
-    // .pipe(
-    //   map(response => response.data)
-    // )
     // .subscribe(response => {
     //   this.usuarios = response;
     //   console.log(this.usuarios);
     // });
+
+    this.store.dispatch(cargarUsuarios());
   }
 
 }
