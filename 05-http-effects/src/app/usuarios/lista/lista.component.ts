@@ -13,21 +13,22 @@ export class ListaComponent implements OnInit {
   usuarios: Array<Usuario> = [];
   subscriptions: Array<Subscription>;
 
-  constructor(private usuarioService: UsuarioService) { }
+  // constructor(private usuarioService: UsuarioService) { }
+  constructor() { }
 
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers() {
-    this.usuarioService.getUsers()
-    .pipe(
-      map(response => response.data)
-    )
-    .subscribe(response => {
-      this.usuarios = response;
-      console.log(this.usuarios);
-    });
+    // this.usuarioService.getUsers()
+    // .pipe(
+    //   map(response => response.data)
+    // )
+    // .subscribe(response => {
+    //   this.usuarios = response;
+    //   console.log(this.usuarios);
+    // });
   }
 
 }
