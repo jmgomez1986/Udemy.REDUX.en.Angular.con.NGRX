@@ -7,7 +7,7 @@ export const cargarUsuario = createAction(
   );
 
 export const cargarUsuarioSuccess = createAction(
-  '[Usuario] cargarUsuariosSuccess',
+  '[Usuario] cargarUsuarioSuccess',
   props<{ usuario: Usuario }>()
 );
 
