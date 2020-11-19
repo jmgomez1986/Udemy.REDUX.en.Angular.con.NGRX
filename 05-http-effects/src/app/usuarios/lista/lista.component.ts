@@ -13,6 +13,8 @@ import { AppState } from 'src/app/store/app.reducers';
 })
 export class ListaComponent implements OnInit {
   usuarios: Array<Usuario> = [];
+  loading = false;
+  error: any;
   subscriptions: Array<Subscription>;
 
   // constructor(private usuarioService: UsuarioService) { }
@@ -23,19 +25,22 @@ export class ListaComponent implements OnInit {
   }
 
   getUsers() {
+    this.store.select('usuarios')
+      .subscribe(({ users, loading, error }) => {
+        console.log('Usuarios: ', users);
+        this.usuarios = users;
+        this.loading = loading;
+        this.error = error;
+      });
+
+    this.store.dispatch(cargarUsuarios());
+
     // this.usuarioService.getUsers()
     // .subscribe(response => {
     //   this.usuarios = response;
     //   console.log(this.usuarios);
     // });
 
-    this.store.select('usuarios')
-      .subscribe(({ users }) => {
-        console.log('Usuarios: ', users);
-        this.usuarios = users;
-      });
-
-    this.store.dispatch(cargarUsuarios());
   }
 
 }
