@@ -14,9 +14,10 @@ export class UsuarioService {
 
   getUsers(): Observable<any> { // Observable<Array<Usuario>> {
     const endpoint = `${this.url}/users?per_page=6`;
-    return this.http.get<any>(endpoint).pipe(
-        map(response => response.data)
-      );
+    // return this.http.get<any>(endpoint).pipe(
+    //     map(response => response.data)
+    //   );
+    return this.http.get<any>(endpoint);
   }
 
   getUserById(id: number): Observable<any> {
