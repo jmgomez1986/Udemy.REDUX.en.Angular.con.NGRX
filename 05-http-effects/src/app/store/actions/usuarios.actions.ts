@@ -8,7 +8,7 @@ export const cargarUsuariosSuccess = createAction(
   props<{ usuarios: Usuario[] }>()
 );
 
-export const cargarUsuariosError= createAction(
+export const cargarUsuariosError = createAction(
   '[Usuario] cargarUsuariosError',
   props<{ payload: any }>()
 );
