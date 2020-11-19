@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -28,6 +28,12 @@ export class ListaComponent implements OnInit {
     //   this.usuarios = response;
     //   console.log(this.usuarios);
     // });
+
+    this.store.select('usuarios')
+      .subscribe(({ users }) => {
+        console.log('Usuarios: ', users);
+        this.usuarios = users;
+      });
 
     this.store.dispatch(cargarUsuarios());
   }
